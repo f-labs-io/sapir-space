@@ -1042,3 +1042,38 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         });
     });
 });
+
+// ========== HEART EASTER EGG ==========
+function initHeartEasterEgg() {
+    const heartTrigger = document.getElementById('heartTrigger');
+    if (!heartTrigger) return;
+
+    const hearts = ['💜', '💕', '💗', '💖', '💝', '🩷', '💟', '❤️', '🤍'];
+
+    heartTrigger.addEventListener('click', () => {
+        // Create many hearts
+        for (let i = 0; i < 30; i++) {
+            setTimeout(() => createFloatingHeart(hearts), i * 50);
+        }
+    });
+}
+
+function createFloatingHeart(hearts) {
+    const heart = document.createElement('span');
+    heart.className = 'floating-heart';
+    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+
+    // Random position across the screen
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.bottom = '10vh';
+    heart.style.fontSize = (1.5 + Math.random() * 2) + 'rem';
+    heart.style.animationDuration = (2 + Math.random() * 2) + 's';
+
+    document.body.appendChild(heart);
+
+    // Remove after animation
+    setTimeout(() => heart.remove(), 4000);
+}
+
+// Initialize easter egg
+document.addEventListener('DOMContentLoaded', initHeartEasterEgg);

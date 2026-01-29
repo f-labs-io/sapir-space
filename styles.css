@@ -1669,3 +1669,37 @@ body {
 .zone:nth-child(3) { animation-delay: 0.4s; }
 .zone:nth-child(4) { animation-delay: 0.6s; }
 .zone:nth-child(5) { animation-delay: 0.8s; }
+
+/* ========== HEART EASTER EGG ========== */
+.heart-trigger {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    display: inline-block;
+}
+
+.heart-trigger:hover {
+    transform: scale(1.3);
+}
+
+.floating-heart {
+    position: fixed;
+    font-size: 2rem;
+    pointer-events: none;
+    z-index: 9999;
+    animation: floatUp 3s ease-out forwards;
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(-40vh) scale(1.2) rotate(15deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-80vh) scale(0.5) rotate(-15deg);
+    }
+}
