@@ -1273,6 +1273,36 @@ body {
     font-weight: 500;
 }
 
+.guess-difficulty {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.difficulty-btn {
+    padding: 10px 20px;
+    background: var(--bg-secondary);
+    border: 2px solid transparent;
+    border-radius: 20px;
+    color: var(--text-secondary);
+    font-family: inherit;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.difficulty-btn:hover {
+    background: var(--accent-soft);
+    color: var(--text-primary);
+}
+
+.difficulty-btn.active {
+    background: var(--accent);
+    color: var(--white);
+    border-color: var(--accent);
+}
+
 /* ========== BRAIN FOG ========== */
 .brain-fog {
     background: linear-gradient(180deg, var(--accent-soft) 0%, var(--bg-secondary) 100%);
