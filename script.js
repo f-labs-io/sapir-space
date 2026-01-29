@@ -726,7 +726,7 @@ function showRandomName() {
     const nameDisplay = document.getElementById('nameDisplay');
     const nameMeaning = document.getElementById('nameMeaning');
     const nameComment = document.getElementById('nameComment');
-    const nameCard = document.getElementById('nameCard');
+    const spinBtn = document.getElementById('spinName');
 
     // Get random name (different from current)
     let newIndex;
@@ -737,17 +737,32 @@ function showRandomName() {
     currentNameIndex = newIndex;
     const name = babyNames[currentNameIndex];
 
-    // Animate
+    spinBtn.disabled = true;
+
+    // Animate with AI thinking
     nameDisplay.style.opacity = '0';
     nameDisplay.style.transform = 'scale(0.8)';
+    nameMeaning.style.opacity = '0';
+    nameComment.style.opacity = '0';
 
     setTimeout(() => {
-        nameDisplay.textContent = name.name;
-        nameMeaning.textContent = name.meaning;
-        nameComment.textContent = `🤖 ${name.comment}`;
-
+        nameDisplay.textContent = '🤖 בוחר שם...';
         nameDisplay.style.opacity = '1';
         nameDisplay.style.transform = 'scale(1)';
+
+        setTimeout(() => {
+            nameDisplay.style.opacity = '0';
+            setTimeout(() => {
+                nameDisplay.textContent = name.name;
+                nameMeaning.textContent = name.meaning;
+                nameComment.textContent = `🤖 ${name.comment}`;
+
+                nameDisplay.style.opacity = '1';
+                nameMeaning.style.opacity = '1';
+                nameComment.style.opacity = '1';
+                spinBtn.disabled = false;
+            }, 200);
+        }, 700 + Math.random() * 500);
     }, 200);
 }
 
@@ -803,6 +818,27 @@ function initFakeFeedback() {
     });
 }
 
+// ========== AI THINKING ANIMATION ==========
+function showAiThinking(element, callback) {
+    const thinkingTexts = ['🤖 חושב...', '🤖 מעבד...', '🤖 רגע...'];
+    const thinkingText = thinkingTexts[Math.floor(Math.random() * thinkingTexts.length)];
+
+    element.style.opacity = '0';
+    setTimeout(() => {
+        element.textContent = thinkingText;
+        element.style.opacity = '1';
+
+        // Show result after fake thinking
+        setTimeout(() => {
+            element.style.opacity = '0';
+            setTimeout(() => {
+                callback();
+                element.style.opacity = '1';
+            }, 200);
+        }, 800 + Math.random() * 600);
+    }, 200);
+}
+
 // ========== EXCUSE GENERATOR ==========
 function initExcuseGenerator() {
     const btn = document.getElementById('generateExcuse');
@@ -811,12 +847,12 @@ function initExcuseGenerator() {
     if (!btn) return;
 
     btn.addEventListener('click', () => {
+        btn.disabled = true;
         const excuse = excuses[Math.floor(Math.random() * excuses.length)];
-        text.style.opacity = '0';
-        setTimeout(() => {
+        showAiThinking(text, () => {
             text.textContent = excuse;
-            text.style.opacity = '1';
-        }, 200);
+            btn.disabled = false;
+        });
     });
 }
 
@@ -862,13 +898,27 @@ function initBabyTranslator() {
     }
 
     btn.addEventListener('click', () => {
+        btn.disabled = true;
         currentTranslation = (currentTranslation + 1) % babyTranslations.length;
+        const t = babyTranslations[currentTranslation];
+
         from.style.opacity = '0';
         to.style.opacity = '0';
+
         setTimeout(() => {
-            showTranslation();
+            from.textContent = t.baby;
+            to.textContent = '🤖 מתרגם...';
             from.style.opacity = '1';
             to.style.opacity = '1';
+
+            setTimeout(() => {
+                to.style.opacity = '0';
+                setTimeout(() => {
+                    to.textContent = t.work;
+                    to.style.opacity = '1';
+                    btn.disabled = false;
+                }, 200);
+            }, 600 + Math.random() * 500);
         }, 200);
     });
 
@@ -971,18 +1021,34 @@ function initGuessWho() {
 
     function showBio() {
         currentBio = getRandomBio();
-        bio.textContent = `"${currentBio.bio}"`;
         result.classList.add('hidden');
 
-        // Shuffle team names for options
-        const shuffled = [...teamMembers].sort(() => Math.random() - 0.5);
-        options.innerHTML = shuffled.map(person => `
-            <button class="guess-option" data-name="${person.name}">${person.name}</button>
-        `).join('');
+        // Show thinking first
+        bio.style.opacity = '0';
+        options.innerHTML = '';
 
-        options.querySelectorAll('.guess-option').forEach(btn => {
-            btn.addEventListener('click', () => checkGuess(btn.dataset.name));
-        });
+        setTimeout(() => {
+            bio.textContent = '🤖 מחפש ביוגרפיה...';
+            bio.style.opacity = '1';
+
+            setTimeout(() => {
+                bio.style.opacity = '0';
+                setTimeout(() => {
+                    bio.textContent = `"${currentBio.bio}"`;
+                    bio.style.opacity = '1';
+
+                    // Shuffle team names for options
+                    const shuffled = [...teamMembers].sort(() => Math.random() - 0.5);
+                    options.innerHTML = shuffled.map(person => `
+                        <button class="guess-option" data-name="${person.name}">${person.name}</button>
+                    `).join('');
+
+                    options.querySelectorAll('.guess-option').forEach(btn => {
+                        btn.addEventListener('click', () => checkGuess(btn.dataset.name));
+                    });
+                }, 200);
+            }, 700 + Math.random() * 500);
+        }, 200);
     }
 
     function checkGuess(name) {
