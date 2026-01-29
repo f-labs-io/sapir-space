@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sapir Space — Maternity Mode</title>
+    <link rel="stylesheet" href="styles.css?v=4">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500&family=Heebo:wght@200;300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Landing / Entrance -->
+    <section id="entrance" class="zone entrance">
+        <div class="entrance-content">
+            <h1 class="title">Sapir Space</h1>
+            <p class="mode-indicator">Maternity Mode</p>
+            <p class="subtext">המרחב הזה כולו בשבילך.<br>אנחנו מחזיקים כאן, כדי שתוכלי להיות שם.</p>
+            <button class="enter-btn" id="enterBtn">
+                להיכנס כשבא לך
+                <span class="hover-text">בלי לחץ.</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Main Content (hidden until enter) -->
+    <main id="mainContent" class="hidden">
+
+        <!-- 1. Zone: Presence - Soft welcome -->
+        <section class="zone presence">
+            <div class="presence-message" id="presenceMessage">
+                <p>מותר לך פשוט להיות פה.</p>
+            </div>
+            <div class="presence-breath"></div>
+        </section>
+
+        <!-- 2. Zone: Baby Name Helper - Fun interactive -->
+        <section class="zone baby-names">
+            <div class="zone-header">
+                <h2>איך תקראי לתינוקת החדשה?</h2>
+                <p class="zone-subtitle">עוזרת החלטות לשמות. בלי אחריות.</p>
+            </div>
+            <div class="names-container">
+                <div class="name-card" id="nameCard">
+                    <div class="name-display" id="nameDisplay">לחצי לגלות</div>
+                    <div class="name-meaning" id="nameMeaning"></div>
+                    <div class="name-ai-comment" id="nameComment"></div>
+                    <div class="name-buttons">
+                        <button class="name-btn spin" id="spinName">🎲 שם אחר</button>
+                        <button class="name-btn love" id="loveName">💜 אוהבת</button>
+                    </div>
+                    <div class="loved-names" id="lovedNames"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Zone: AI Chat Snippets - Entertainment -->
+        <section class="zone maternity-moments">
+            <div class="zone-header">
+                <h2>שיחות AI אפשריות</h2>
+                <p class="zone-subtitle">הצצה לשיחות שאולי יקרו.</p>
+            </div>
+            <div class="moments-container">
+                <div class="moment-card" id="momentCard">
+                    <div class="moment-scene" id="momentScene">
+                        <p class="moment-time">03:47</p>
+                        <p class="moment-context" id="momentContext"></p>
+                    </div>
+                    <div class="moment-chat" id="momentChat">
+                        <!-- Messages will be populated by JS -->
+                    </div>
+                    <button class="moment-btn" id="nextMoment">עוד שיחה</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Zone: Baby to Work Translator - Baby theme -->
+        <section class="zone baby-translator">
+            <div class="zone-header">
+                <h2>תרגום לשפת העבודה</h2>
+                <p class="zone-subtitle">התינוקת בעצם אומרת...</p>
+            </div>
+            <div class="translator-container">
+                <div class="translator-card">
+                    <div class="translate-from" id="translateFrom">👶 בכי בלתי פוסק</div>
+                    <div class="translate-arrow">↓</div>
+                    <div class="translate-to" id="translateTo">📊 "Stakeholder מביע דרישות דחופות שלא נענו"</div>
+                    <button class="translate-btn" id="nextTranslate">🔄 תרגום הבא</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Zone: Sleep Debt Calculator - Personal -->
+        <section class="zone sleep-debt">
+            <div class="zone-header">
+                <h2>מחשבון חוב שינה</h2>
+                <p class="zone-subtitle">כמה את חייבת לעצמך?</p>
+            </div>
+            <div class="sleep-container">
+                <div class="sleep-card">
+                    <label class="sleep-label">כמה שעות ישנת בממוצע?</label>
+                    <input type="range" min="0" max="8" value="4" class="sleep-slider" id="sleepSlider">
+                    <div class="sleep-value" id="sleepValue">4 שעות</div>
+                    <div class="sleep-result" id="sleepResult"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Zone: Excuse Generator - Light & funny -->
+        <section class="zone excuse-generator">
+            <div class="zone-header">
+                <h2>מחולל תירוצים</h2>
+                <p class="zone-subtitle">למקרה שצריך להסביר למה לא...</p>
+            </div>
+            <div class="excuse-container">
+                <div class="excuse-card">
+                    <div class="excuse-text" id="excuseText">לחצי לקבל תירוץ</div>
+                    <button class="excuse-btn" id="generateExcuse">🎰 תירוץ חדש</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. Zone: Guess Who - Team game -->
+        <section class="zone guess-who">
+            <div class="zone-header">
+                <h2>מי מהצוות?</h2>
+                <p class="zone-subtitle">AI כתב ביוגרפיות. נחשי מי זה.</p>
+            </div>
+            <div class="guess-container">
+                <div class="guess-card">
+                    <div class="guess-bio" id="guessBio"></div>
+                    <div class="guess-options" id="guessOptions">
+                        <!-- Will be populated by JS -->
+                    </div>
+                    <div class="guess-result hidden" id="guessResult"></div>
+                    <div class="guess-score" id="guessScore">ניקוד: 0</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. Zone: What We're Doing - Team message -->
+        <section class="zone whats-up">
+            <div class="zone-header">
+                <h2>מה אנחנו עושים עכשיו?</h2>
+                <p class="zone-subtitle">נו באמת...</p>
+            </div>
+            <div class="whatsup-container">
+                <div class="whatsup-card">
+                    <div class="whatsup-emoji">🤷‍♀️</div>
+                    <p class="whatsup-text">את יודעת מה אנחנו עושים תמיד.</p>
+                    <p class="whatsup-subtext">מה שאת אומרת לנו. תמיד.</p>
+                    <div class="whatsup-wink">😉</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. Zone: Fake Feedback - Funny ending -->
+        <section class="zone fake-feedback">
+            <div class="zone-header">
+                <h2>רוצה לספר לנו משהו?</h2>
+                <p class="zone-subtitle">תמיד פה להקשיב.</p>
+            </div>
+
+            <div class="feedback-container">
+                <textarea class="feedback-input" id="feedbackInput" placeholder="כתבי כאן..."></textarea>
+                <button class="feedback-btn" id="feedbackBtn">לשלוח</button>
+            </div>
+
+            <!-- Popup -->
+            <div class="feedback-popup hidden" id="feedbackPopup">
+                <div class="popup-content">
+                    <p class="popup-text">רצינית?! 😂</p>
+                    <p class="popup-subtext">את יכולה לדבר איתנו ישירות בכל כך הרבה פלטפורמות... חשבת שפיתחנו פה גם צ'אט?</p>
+                    <button class="popup-close" id="popupClose">טוב נו 🙄</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="zone footer">
+            <p>Built with 💜 from Pythons Team</p>
+        </footer>
+    </main>
+
+    <script src="script.js?v=3"></script>
+</body>
+</html>
