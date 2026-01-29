@@ -693,6 +693,12 @@ function showMoment(index) {
             </div>
         `).join('');
 
+        // Scroll chat to top
+        chatEl.scrollTop = 0;
+
+        // Scroll card into view
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
         // Fade in
         card.style.opacity = '1';
         card.style.transform = 'translateY(0)';
