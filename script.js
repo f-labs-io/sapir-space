@@ -939,10 +939,14 @@ let currentTranslation = 0;
 
 function initBabyTranslator() {
     const btn = document.getElementById('nextTranslate');
+    const copyBtn = document.getElementById('copyTranslate');
     const from = document.getElementById('translateFrom');
     const to = document.getElementById('translateTo');
+    const recentList = document.getElementById('recentList');
 
     if (!btn) return;
+
+    const recentTranslations = [];
 
     function showTranslation() {
         const t = babyTranslations[currentTranslation];
@@ -950,8 +954,37 @@ function initBabyTranslator() {
         to.textContent = t.work;
     }
 
+    function addToRecent(translation) {
+        // Add to beginning of list, max 5 items
+        recentTranslations.unshift(translation);
+        if (recentTranslations.length > 5) recentTranslations.pop();
+
+        // Update the list display
+        if (recentList) {
+            recentList.innerHTML = recentTranslations.map(t =>
+                `<li data-text="${t.work}">${t.baby} → ${t.work.substring(0, 30)}...</li>`
+            ).join('');
+
+            // Add click to copy for each item
+            recentList.querySelectorAll('li').forEach(li => {
+                li.addEventListener('click', () => {
+                    navigator.clipboard.writeText(li.dataset.text);
+                    li.style.background = '#a0d468';
+                    li.style.color = 'white';
+                    setTimeout(() => {
+                        li.style.background = '';
+                        li.style.color = '';
+                    }, 500);
+                });
+            });
+        }
+    }
+
     btn.addEventListener('click', () => {
         btn.disabled = true;
+        const prevTranslation = babyTranslations[currentTranslation];
+        addToRecent(prevTranslation);
+
         currentTranslation = (currentTranslation + 1) % babyTranslations.length;
         const t = babyTranslations[currentTranslation];
 
@@ -974,6 +1007,22 @@ function initBabyTranslator() {
             }, 600 + Math.random() * 500);
         }, 200);
     });
+
+    // Copy button functionality
+    if (copyBtn) {
+        copyBtn.addEventListener('click', () => {
+            const textToCopy = to.textContent;
+            navigator.clipboard.writeText(textToCopy);
+
+            copyBtn.textContent = '✓ הועתק!';
+            copyBtn.classList.add('copied');
+
+            setTimeout(() => {
+                copyBtn.textContent = '📋 העתק לסלאק';
+                copyBtn.classList.remove('copied');
+            }, 1500);
+        });
+    }
 
     showTranslation();
 }

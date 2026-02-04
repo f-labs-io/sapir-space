@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sapir Space — Maternity Mode</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💜</text></svg>">
-    <link rel="stylesheet" href="styles.css?v=6">
+    <link rel="stylesheet" href="styles.css?v=7">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500&family=Heebo:wght@200;300;400&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
             <p class="mode-indicator">Maternity Mode</p>
             <p class="subtext">המרחב הזה כולו בשבילך.<br>אנחנו מחזיקים כאן, כדי שתוכלי להיות שם.</p>
             <button class="enter-btn" id="enterBtn">
-                להיכנס כשבא לך
+                בואי נתחיל :)
                 <span class="hover-text">בלי לחץ.</span>
             </button>
         </div>
@@ -39,7 +39,7 @@
         <section class="zone baby-names">
             <div class="zone-header">
                 <h2>איך תקראי לתינוקת החדשה?</h2>
-                <p class="zone-subtitle">עוזרת החלטות לשמות. בלי אחריות.</p>
+                <p class="zone-subtitle">הנה כמה שמות שאהבנו, לא לוקחים אחריות</p>
             </div>
             <div class="names-container">
                 <div class="name-card" id="nameCard">
@@ -86,7 +86,14 @@
                     <div class="translate-from" id="translateFrom">👶 בכי בלתי פוסק</div>
                     <div class="translate-arrow">↓</div>
                     <div class="translate-to" id="translateTo">📊 "Stakeholder מביע דרישות דחופות שלא נענו"</div>
-                    <button class="translate-btn" id="nextTranslate">🔄 תרגום הבא</button>
+                    <div class="translator-buttons">
+                        <button class="translate-btn" id="nextTranslate">🔄 תרגום הבא</button>
+                        <button class="translate-btn copy-btn" id="copyTranslate">📋 העתק לסלאק</button>
+                    </div>
+                    <div class="recent-translations" id="recentTranslations">
+                        <p class="recent-title">תרגומים אחרונים:</p>
+                        <ul class="recent-list" id="recentList"></ul>
+                    </div>
                 </div>
             </div>
         </section>
@@ -111,7 +118,7 @@
         <section class="zone excuse-generator">
             <div class="zone-header">
                 <h2>מחולל תירוצים</h2>
-                <p class="zone-subtitle">למקרה שצריך להסביר למה לא...</p>
+                <p class="zone-subtitle">איך להגיד לא בלי רגשות אשם?</p>
             </div>
             <div class="excuse-container">
                 <div class="excuse-card">
@@ -187,6 +194,6 @@
         </footer>
     </main>
 
-    <script src="script.js?v=6"></script>
+    <script src="script.js?v=7"></script>
 </body>
 </html>

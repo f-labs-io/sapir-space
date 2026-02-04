@@ -992,6 +992,59 @@ body {
     background: var(--accent-soft);
 }
 
+.translator-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.copy-btn {
+    background: var(--accent-soft);
+}
+
+.copy-btn.copied {
+    background: #a0d468;
+    color: var(--white);
+    border-color: #a0d468;
+}
+
+.recent-translations {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid var(--accent-soft);
+    text-align: right;
+}
+
+.recent-title {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 10px;
+}
+
+.recent-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 120px;
+    overflow-y: auto;
+}
+
+.recent-list li {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    padding: 8px 12px;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.recent-list li:hover {
+    background: var(--accent-soft);
+}
+
 /* ========== ACHIEVEMENTS ========== */
 .achievements {
     background: linear-gradient(180deg, var(--accent-soft) 0%, var(--bg-secondary) 100%);
