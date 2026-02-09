@@ -5,27 +5,103 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sapir Space — Maternity Mode</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💜</text></svg>">
-    <link rel="stylesheet" href="styles.css?v=7">
+    <link rel="stylesheet" href="styles.css?v=8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500&family=Heebo:wght@200;300;400&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Landing / Entrance -->
-    <section id="entrance" class="zone entrance">
+    <!-- Landing / Entrance — Birthday Edition -->
+    <section id="entrance" class="zone entrance birthday-entrance">
+        <div class="confetti-container" id="confettiContainer"></div>
         <div class="entrance-content">
-            <h1 class="title">Sapir Space</h1>
-            <p class="mode-indicator">Maternity Mode</p>
-            <p class="subtext">המרחב הזה כולו בשבילך.<br>אנחנו מחזיקים כאן, כדי שתוכלי להיות שם.</p>
+            <div class="birthday-cake-anim" id="birthdayCake" role="button" tabindex="0">🎂</div>
+            <h1 class="title birthday-title">
+                <span class="birthday-balloon-left" id="balloonLeft" role="button" tabindex="0">🎈</span>
+                Sapir Space
+                <span class="birthday-balloon-right" id="balloonRight" role="button" tabindex="0">🎈</span>
+            </h1>
+            <p class="mode-indicator">🎉 Birthday Mode 🎉</p>
+            <p class="subtext">יום הולדת שמח, ספיר!<br>הכנו לך כמה הפתעות קטנות.</p>
             <button class="enter-btn" id="enterBtn">
-                בואי נתחיל :)
-                <span class="hover-text">בלי לחץ.</span>
+                בואי לחגוג 🎈
+                <span class="hover-text">יש עוגה.</span>
             </button>
         </div>
     </section>
 
     <!-- Main Content (hidden until enter) -->
     <main id="mainContent" class="hidden">
+
+        <!-- Birthday Zone -->
+        <section class="zone birthday-zone">
+            <div class="zone-header">
+                <h2>🎂 יום הולדת שמח! 🎂</h2>
+                <p class="zone-subtitle">הכנו לך כמה דברים מיוחדים</p>
+            </div>
+
+            <!-- Make Everything OK -->
+            <div class="birthday-activity" id="happinessCheckin">
+                <div class="activity-card make-ok-card">
+                    <div id="makeOkInitial">
+                        <button class="make-ok-btn" id="makeOkBtn">הכפתור הקסום — תעשי שאהיה מאושרת</button>
+                    </div>
+                    <div id="makeOkProgress" class="hidden">
+                        <p class="make-ok-status" id="makeOkStatus">מסדרת את הכל...</p>
+                        <div class="make-ok-bar-wrap">
+                            <div class="make-ok-bar" id="makeOkBar"></div>
+                        </div>
+                    </div>
+                    <div id="makeOkDone" class="hidden">
+                        <p class="make-ok-done-text">את מאושרת עכשיו. 💜</p>
+                        <p class="make-ok-sub">אם עדיין לא בסדר, נסי לכוונן את הגדרות התפיסה של המציאות האובייקטיבית.</p>
+                        <button class="make-ok-again" id="makeOkAgain">עוד פעם</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wish Wall -->
+            <div class="birthday-activity" id="wishWall">
+                <div class="activity-card">
+                    <h3 class="activity-title">קיר ברכות 💌</h3>
+                    <p class="activity-subtitle-sm">הצוות רוצה להגיד לך משהו</p>
+                    <div class="wishes-container" id="wishesContainer"></div>
+                    <button class="wish-reveal-btn" id="showNextWish">💌 גלי ברכה</button>
+                </div>
+            </div>
+
+            <!-- Mini Games -->
+            <div class="birthday-activity" id="miniGames">
+                <div class="activity-card">
+                    <h3 class="activity-title">משחקי יום הולדת 🎮</h3>
+                    <div class="games-tabs" id="gamesTabs">
+                        <button class="game-tab active" data-game="balloons">🎈 בלונים</button>
+                        <button class="game-tab" data-game="candles">🕯️ נרות</button>
+                        <button class="game-tab" data-game="wish">⭐ משאלה</button>
+                    </div>
+                    <!-- Balloon Pop -->
+                    <div class="mini-game" id="balloonGame">
+                        <p class="game-instruction">לחצי על הבלונים לפוצץ אותם!</p>
+                        <div class="balloon-arena" id="balloonArena"></div>
+                        <div class="game-score-line">פוצצת: <span id="balloonScore">0</span> בלונים</div>
+                    </div>
+                    <!-- Candles -->
+                    <div class="mini-game hidden" id="candleGame">
+                        <p class="game-instruction">לחצי על הנרות לכבות אותם!</p>
+                        <div class="candles-row" id="candlesRow"></div>
+                        <div class="candle-msg hidden" id="candleMsg">כיבית את כל הנרות! איחלי משאלה 🎉</div>
+                    </div>
+                    <!-- Wish -->
+                    <div class="mini-game hidden" id="wishGame">
+                        <p class="game-instruction">עצמי עיניים, חשבי על משאלה, ולחצי על הכוכב</p>
+                        <div class="wish-star-wrap">
+                            <div class="wish-star" id="wishStar">⭐</div>
+                        </div>
+                        <div class="wish-result hidden" id="wishResult"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- 1. Zone: Presence - Soft welcome -->
         <section class="zone presence">
@@ -190,6 +266,6 @@
         </footer>
     </main>
 
-    <script src="script.js?v=7"></script>
+    <script src="script.js?v=8"></script>
 </body>
 </html>

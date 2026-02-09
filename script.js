@@ -440,9 +440,56 @@ const fogTranslations = [
     "...בכי של תינוק...",
 ];
 
+// ========== BIRTHDAY WISHES ==========
+const birthdayWishes = [
+    { name: "מרים", text: "יום הולדת שמח ספיר! שתמשיכי להאיר לכולנו. חסרה לנו מאוד." },
+    { name: "עמוס", text: "ספיר, מזל טוב! שנה חדשה מלאה בהצלחות, אושר, ושינה (הרבה שינה)." },
+    { name: "שילה", text: "Happy Birthday! שתמשיכי לרוץ קדימה, עם חיוך, כמו תמיד." },
+    { name: "גל", text: "שתתעייפי מהחלומות שלך." },
+    { name: "דור", text: "ספיר, מזל טוב! שיהיה לך כוח להכל — התינוקת, העבודה, והחלומות." },
+    { name: "צפריר", text: "יום הולדת שמח! שתמשיכי לשאול את השאלות הנכונות ולמצוא תשובות מפתיעות." },
+    { name: "ליאל", text: "מזל טוב ספיר! שתמשיכי לבנות דברים מדהימים — גם בבית וגם בעבודה." },
+    { name: "ברית", text: "יום הולדת שמח! את מחברת אנשים, מערכות ורעיונות כמו אף אחד אחר." },
+    { name: "טל", text: "ספיר, מזל טוב! שתהיה לך שנה מלאה בגילויים חדשים ורגעים מתוקים." },
+    { name: "אבישי", text: "יום הולדת שמח! שתמשיכי להשפיע, לבנות ולהוביל. גאה להיות חלק מהצוות שלך." },
+    { name: "דני", text: "מזל טוב ספיר! שנה של חדשנות, צחוקים, ופחות בכיות בשלוש בלילה." },
+    { name: "תהילה", text: "יום הולדת שמח! את דוגמה לכולנו. שתהיה שנה מדהימה." },
+];
+
+// ========== BIRTHDAY WISH RESPONSES ==========
+const wishWhenDone = "זהו! כל הצוות שלח ברכות 💜";
+
+// ========== MAKE EVERYTHING OK - Progress Messages ==========
+const makeOkStatuses = [
+    "מסדרת את הכל...",
+    "מכילה רגשות...",
+    "מבטלת בעיות...",
+    "מייצרת אושר...",
+    "מתקנת את היקום...",
+    "מוחקת דאגות...",
+    "מחליפה עצב בשמחה...",
+    "כמעט שם...",
+    "מסדרת פרטים אחרונים...",
+    "💜",
+];
+
+// ========== WISH STAR MESSAGES ==========
+const starWishes = [
+    "המשאלה שלך נשלחה ליקום ✨ (זמן עיבוד: 3-5 ימי עסקים)",
+    "הכוכבים קיבלו את המשאלה! הם אמרו שהם ישתדלו 💫",
+    "משאלה מאושרת! (בכפוף לתנאי השימוש של היקום) ⭐",
+    "וואו, המשאלה הזו חזקה! מרגישים את זה עד לכאן ✨",
+    "המשאלה בדרך. היקום ביקש ממך להמתין על הקו 🌟",
+    "משאלת יום הולדת מיוחדת! יש לה עדיפות בתור 💜⭐",
+];
+
 // ========== INITIALIZATION ==========
 document.addEventListener('DOMContentLoaded', () => {
     initEntrance();
+    initBirthdayConfetti();
+    initHappinessCheckin();
+    initWishWall();
+    initMiniGames();
     initPresence();
     initMoments();
     initBabyNames();
@@ -1238,6 +1285,429 @@ function initBrainFog() {
         input.value = '';
     });
 }
+
+// ========== AI LOADING HELPER ==========
+const aiLoadingMessages = [
+    "🤖 מעבדת...",
+    "🤖 חושבת...",
+    "🤖 רגע...",
+    "🤖 מחשבת...",
+    "🤖 בודקת...",
+];
+
+function createAiLoading(message) {
+    const text = message || aiLoadingMessages[Math.floor(Math.random() * aiLoadingMessages.length)];
+    const el = document.createElement('div');
+    el.className = 'ai-loading';
+    el.innerHTML = `${text} <span class="ai-loading-dots"><span></span><span></span><span></span></span>`;
+    return el;
+}
+
+function showAiLoadingIn(container, message, duration, callback) {
+    const loader = createAiLoading(message);
+    container.appendChild(loader);
+    setTimeout(() => {
+        loader.remove();
+        if (callback) callback();
+    }, duration || 1000 + Math.random() * 800);
+}
+
+// ========== BIRTHDAY CONFETTI ==========
+function initBirthdayConfetti() {
+    const container = document.getElementById('confettiContainer');
+    if (!container) return;
+
+    const colors = ['#A893C2', '#C9B8DB', '#E0D8ED', '#FFD700', '#FF69B4', '#87CEEB', '#98FB98', '#DDA0DD'];
+
+    function createConfetti() {
+        for (let i = 0; i < 60; i++) {
+            const piece = document.createElement('div');
+            piece.className = 'confetti-piece';
+            piece.style.left = Math.random() * 100 + '%';
+            piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            piece.style.width = (6 + Math.random() * 8) + 'px';
+            piece.style.height = (6 + Math.random() * 8) + 'px';
+            piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+            piece.style.animationDuration = (2 + Math.random() * 3) + 's';
+            piece.style.animationDelay = (Math.random() * 2) + 's';
+            container.appendChild(piece);
+        }
+    }
+
+    createConfetti();
+    // Refresh confetti every 5 seconds
+    setInterval(() => {
+        container.innerHTML = '';
+        createConfetti();
+    }, 5000);
+
+    // Interactive cake — click for sparkle burst
+    const cake = document.getElementById('birthdayCake');
+    if (cake) {
+        const sparkles = ['✨', '🎉', '🎊', '💫', '⭐', '🌟', '💜', '🩷'];
+        cake.addEventListener('click', () => {
+            const rect = cake.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+
+            for (let i = 0; i < 12; i++) {
+                const sp = document.createElement('span');
+                sp.className = 'cake-sparkle';
+                sp.textContent = sparkles[Math.floor(Math.random() * sparkles.length)];
+                sp.style.left = cx + 'px';
+                sp.style.top = cy + 'px';
+                const angle = (Math.PI * 2 / 12) * i;
+                const dist = 60 + Math.random() * 60;
+                sp.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+                sp.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
+                document.body.appendChild(sp);
+                setTimeout(() => sp.remove(), 800);
+            }
+        });
+    }
+
+    // Interactive balloons — click to fly away and respawn
+    const balloonColors = ['🎈', '🩷', '🩵', '💜', '💛', '🧡'];
+
+    function setupBalloon(id) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.addEventListener('click', () => {
+            el.classList.add('balloon-fly');
+            setTimeout(() => {
+                el.classList.remove('balloon-fly');
+                el.textContent = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+            }, 1000);
+        });
+    }
+
+    setupBalloon('balloonLeft');
+    setupBalloon('balloonRight');
+}
+
+// ========== MAKE EVERYTHING OK ==========
+function initHappinessCheckin() {
+    const btn = document.getElementById('makeOkBtn');
+    const initial = document.getElementById('makeOkInitial');
+    const progress = document.getElementById('makeOkProgress');
+    const done = document.getElementById('makeOkDone');
+    const bar = document.getElementById('makeOkBar');
+    const status = document.getElementById('makeOkStatus');
+    const again = document.getElementById('makeOkAgain');
+
+    if (!btn) return;
+
+    btn.addEventListener('click', () => {
+        initial.classList.add('hidden');
+
+        // Show AI thinking first
+        const thinkWrap = document.createElement('div');
+        thinkWrap.style.padding = '30px 0';
+        initial.parentElement.appendChild(thinkWrap);
+        showAiLoadingIn(thinkWrap, "🤖 מכינה את הקסם...", 1500, () => {
+            thinkWrap.remove();
+            progress.classList.remove('hidden');
+
+            let pct = 0;
+            let msgIdx = 0;
+
+            const interval = setInterval(() => {
+                pct += 2 + Math.random() * 6;
+                if (pct > 100) pct = 100;
+                bar.style.width = pct + '%';
+
+                const newIdx = Math.min(Math.floor(pct / 10), makeOkStatuses.length - 1);
+                if (newIdx !== msgIdx) {
+                    msgIdx = newIdx;
+                    status.style.opacity = '0';
+                    setTimeout(() => {
+                        status.textContent = makeOkStatuses[msgIdx];
+                        status.style.opacity = '1';
+                    }, 150);
+                }
+
+                if (pct >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        progress.classList.add('hidden');
+                        done.classList.remove('hidden');
+                    }, 600);
+                }
+            }, 300);
+        });
+    });
+
+    if (again) {
+        again.addEventListener('click', () => {
+            done.classList.add('hidden');
+            bar.style.width = '0%';
+            status.textContent = makeOkStatuses[0];
+            initial.classList.remove('hidden');
+        });
+    }
+}
+
+// ========== WISH WALL ==========
+let wishIndex = 0;
+
+function initWishWall() {
+    const btn = document.getElementById('showNextWish');
+    const container = document.getElementById('wishesContainer');
+
+    if (!btn || !container) return;
+
+    // Shuffle wishes
+    const shuffled = [...birthdayWishes].sort(() => Math.random() - 0.5);
+
+    btn.addEventListener('click', () => {
+        if (wishIndex >= shuffled.length) return;
+
+        btn.disabled = true;
+        const wish = shuffled[wishIndex];
+
+        showAiLoadingIn(container, "🤖 מחפשת ברכה...", 1200 + Math.random() * 600, () => {
+            const card = document.createElement('div');
+            card.className = 'wish-card';
+            card.innerHTML = `
+                <div class="wish-name">${wish.name}</div>
+                <div class="wish-text">${wish.text}</div>
+            `;
+            container.appendChild(card);
+            card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            wishIndex++;
+
+            if (wishIndex >= shuffled.length) {
+                btn.textContent = wishWhenDone;
+            } else {
+                btn.disabled = false;
+                btn.textContent = `💌 גלי ברכה (${shuffled.length - wishIndex} נשארו)`;
+            }
+        });
+    });
+}
+
+// ========== MINI GAMES ==========
+function initMiniGames() {
+    initGameTabs();
+    initBalloonGame();
+    initCandleGame();
+    initWishStarGame();
+}
+
+function initGameTabs() {
+    const tabs = document.getElementById('gamesTabs');
+    if (!tabs) return;
+
+    tabs.querySelectorAll('.game-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.querySelectorAll('.game-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            // Hide all games
+            document.querySelectorAll('.mini-game').forEach(g => g.classList.add('hidden'));
+
+            // Show AI loading then the game
+            const gameId = tab.dataset.game;
+            const gameMap = { balloons: 'balloonGame', candles: 'candleGame', wish: 'wishGame' };
+            const el = document.getElementById(gameMap[gameId]);
+            if (!el) return;
+
+            const loadWrap = document.createElement('div');
+            tabs.parentElement.appendChild(loadWrap);
+            showAiLoadingIn(loadWrap, "🤖 מכינה משחק...", 800 + Math.random() * 400, () => {
+                loadWrap.remove();
+                el.classList.remove('hidden');
+            });
+        });
+    });
+}
+
+// Balloon Pop
+let balloonScore = 0;
+
+function initBalloonGame() {
+    const arena = document.getElementById('balloonArena');
+    const scoreEl = document.getElementById('balloonScore');
+    if (!arena) return;
+
+    const balloonEmojis = ['🎈', '🟣', '🩷', '🩵', '💜', '🟡'];
+
+    function spawnBalloon() {
+        const balloon = document.createElement('span');
+        balloon.className = 'arena-balloon';
+        balloon.textContent = balloonEmojis[Math.floor(Math.random() * balloonEmojis.length)];
+        balloon.style.left = (10 + Math.random() * 75) + '%';
+        balloon.style.top = (10 + Math.random() * 70) + '%';
+        balloon.style.animationDelay = (Math.random() * 2) + 's';
+
+        balloon.addEventListener('click', () => {
+            if (balloon.classList.contains('popped')) return;
+            balloon.classList.add('popped');
+            balloonScore++;
+            scoreEl.textContent = balloonScore;
+
+            setTimeout(() => {
+                balloon.remove();
+                spawnBalloon();
+            }, 300);
+        });
+
+        arena.appendChild(balloon);
+    }
+
+    // Spawn initial balloons
+    for (let i = 0; i < 8; i++) {
+        spawnBalloon();
+    }
+}
+
+// Candle Game
+function initCandleGame() {
+    const row = document.getElementById('candlesRow');
+    const msg = document.getElementById('candleMsg');
+    if (!row) return;
+
+    let candlesLeft = 7;
+    const totalCandles = 7;
+
+    for (let i = 0; i < totalCandles; i++) {
+        const candle = document.createElement('span');
+        candle.className = 'candle-item';
+        candle.textContent = '🕯️';
+        candle.addEventListener('click', () => {
+            if (candle.classList.contains('blown')) return;
+            candle.classList.add('blown');
+            candle.textContent = '🌬️';
+            candlesLeft--;
+
+            if (candlesLeft === 0) {
+                msg.classList.remove('hidden');
+            }
+        });
+        row.appendChild(candle);
+    }
+}
+
+// Wish Star
+function initWishStarGame() {
+    const star = document.getElementById('wishStar');
+    const result = document.getElementById('wishResult');
+    if (!star) return;
+
+    star.addEventListener('click', () => {
+        star.style.transform = 'scale(0) rotate(180deg)';
+        star.style.transition = 'transform 0.5s ease';
+        result.classList.add('hidden');
+
+        setTimeout(() => {
+            star.textContent = '🌟';
+            star.style.transform = 'scale(1.3) rotate(0deg)';
+
+            setTimeout(() => {
+                star.style.transform = 'scale(1)';
+                star.textContent = '⭐';
+            }, 500);
+
+            // AI loading before showing result
+            const loadWrap = document.createElement('div');
+            star.parentElement.parentElement.appendChild(loadWrap);
+            showAiLoadingIn(loadWrap, "🤖 שולחת משאלה ליקום...", 1500, () => {
+                loadWrap.remove();
+                const wish = starWishes[Math.floor(Math.random() * starWishes.length)];
+                result.classList.remove('hidden');
+                result.textContent = wish;
+            });
+        }, 500);
+    });
+}
+
+// ========== CLICKABLE EMOJIS EVERYWHERE ==========
+function initClickableEmojis() {
+    const sparkles = ['✨', '🎉', '🎊', '💫', '⭐', '🌟', '💜', '🩷'];
+    const balloonColors = ['🎈', '🩷', '🩵', '💜', '💛', '🧡', '❤️'];
+
+    function burstSparkles(x, y) {
+        for (let i = 0; i < 10; i++) {
+            const sp = document.createElement('span');
+            sp.className = 'cake-sparkle';
+            sp.textContent = sparkles[Math.floor(Math.random() * sparkles.length)];
+            sp.style.left = x + 'px';
+            sp.style.top = y + 'px';
+            const angle = (Math.PI * 2 / 10) * i;
+            const dist = 50 + Math.random() * 50;
+            sp.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+            sp.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
+            document.body.appendChild(sp);
+            setTimeout(() => sp.remove(), 800);
+        }
+    }
+
+    function flyBalloon(el) {
+        el.classList.add('balloon-fly');
+        setTimeout(() => {
+            el.classList.remove('balloon-fly');
+            el.textContent = balloonColors[Math.floor(Math.random() * balloonColors.length)];
+        }, 1000);
+    }
+
+    // Walk all text nodes and wrap 🎂 and 🎈 in clickable spans
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+    const textNodes = [];
+    while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+    textNodes.forEach(node => {
+        const text = node.textContent;
+        if (!text.match(/🎂|🎈/)) return;
+
+        // Skip nodes already inside interactive elements we set up
+        if (node.parentElement.id === 'birthdayCake' ||
+            node.parentElement.id === 'balloonLeft' ||
+            node.parentElement.id === 'balloonRight' ||
+            node.parentElement.classList.contains('clickable-emoji') ||
+            node.parentElement.classList.contains('arena-balloon')) return;
+
+        // Skip script/style tags
+        const tag = node.parentElement.tagName;
+        if (tag === 'SCRIPT' || tag === 'STYLE') return;
+
+        const frag = document.createDocumentFragment();
+        const parts = text.split(/(🎂|🎈)/);
+
+        parts.forEach(part => {
+            if (part === '🎂' || part === '🎈') {
+                const span = document.createElement('span');
+                span.textContent = part;
+                span.className = 'clickable-emoji';
+                span.style.cursor = 'pointer';
+                span.style.display = 'inline-block';
+                span.style.transition = 'transform 0.2s ease';
+                span.style.userSelect = 'none';
+
+                if (part === '🎂') {
+                    span.addEventListener('click', (e) => {
+                        burstSparkles(e.clientX, e.clientY);
+                    });
+                } else {
+                    span.addEventListener('click', () => {
+                        flyBalloon(span);
+                    });
+                }
+
+                span.addEventListener('mouseenter', () => { span.style.transform = 'scale(1.3)'; });
+                span.addEventListener('mouseleave', () => { span.style.transform = 'scale(1)'; });
+
+                frag.appendChild(span);
+            } else if (part) {
+                frag.appendChild(document.createTextNode(part));
+            }
+        });
+
+        node.parentElement.replaceChild(frag, node);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initClickableEmojis);
 
 // ========== SMOOTH SCROLL ==========
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
